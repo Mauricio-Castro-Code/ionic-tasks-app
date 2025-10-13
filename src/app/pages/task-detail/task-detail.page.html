@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Detalles de la Tarea</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" *ngIf="task">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <ion-item>
+      <ion-input label="Título" labelPlacement="stacked" formControlName="title"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-textarea label="Descripción" labelPlacement="stacked" autoGrow="true" formControlName="description"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="date" label="Fecha entrega" labelPlacement="stacked" formControlName="dueDate"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-checkbox formControlName="done">Completada</ion-checkbox>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" class="ion-margin-top" [disabled]="form.invalid">
+      Guardar cambios
+    </ion-button>
+  </form>
+
+  <!-- Botón de eliminar debajo del guardar -->
+  <ion-button expand="block" color="danger" fill="outline" class="ion-margin-top" (click)="remove()">
+    Eliminar tarea
+  </ion-button>
+</ion-content>

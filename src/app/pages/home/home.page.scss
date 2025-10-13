@@ -1,0 +1,22 @@
+.done { text-decoration: line-through; opacity: .6; }
+.empty {
+  margin-top: 20vh; text-align: center; opacity: .6;
+  ion-icon { font-size: 64px; }
+}
+
+ion-segment {
+  max-width: 480px;
+  margin: 0 auto;
+}
+ion-item-option[color="danger"] {
+  --background: var(--ion-color-danger);
+  --color: #fff;
+}
+ion-toolbar ion-segment {
+  max-width: 520px;
+  margin: 0 auto;
+}
+ion-segment-button .count {
+  font-weight: 600;
+  opacity: .9;
+}

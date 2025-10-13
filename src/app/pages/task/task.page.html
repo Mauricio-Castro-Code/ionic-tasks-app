@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Creando una nueva tarea</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <ion-item>
+      <ion-input label="Título" labelPlacement="stacked" placeholder="Ej. Entregar reporte" formControlName="title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea label="Descripción" labelPlacement="stacked" autoGrow="true" formControlName="description"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Fecha de Entrega" labelPlacement="stacked" type="date" formControlName="dueDate"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" class="ion-margin-top" [disabled]="form.invalid">Crear Tarea</ion-button>
+  </form>
+</ion-content>

@@ -1,0 +1,69 @@
+<ion-header>
+
+  <ion-toolbar>
+    <ion-title>Inicio</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-segment value="all" (ionChange)="setFilter($event)">
+      <ion-segment-button value="all">
+        Todas <span class="count">({{ (counts$ | async)?.all || 0 }})</span>
+      </ion-segment-button>
+      <ion-segment-button value="pending">
+        Pendientes <span class="count">({{ (counts$ | async)?.pending || 0 }})</span>
+      </ion-segment-button>
+      <ion-segment-button value="done">
+        Completadas <span class="count">({{ (counts$ | async)?.done || 0 }})</span>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list *ngIf="(tasks$ | async) as tasks; else empty" inset="true">
+    <ion-item-sliding *ngFor="let t of tasks; trackBy: trackById" #sliding>
+      <ion-item (click)="open(t)">
+        <ion-checkbox
+          slot="start"
+          [checked]="t.done"
+          (ionChange)="onToggleChange(t, $event)"
+          (click)="$event.stopPropagation()">
+        </ion-checkbox>
+
+        <ion-label>
+          <h2 [class.done]="t.done">{{ t.title }}</h2>
+          <p *ngIf="t.description">{{ t.description }}</p>
+          <ion-note *ngIf="t.dueDate">Vence: {{ t.dueDate }}</ion-note>
+        </ion-label>
+
+        <ion-icon name="chevron-forward" slot="end" (click)="open(t)"></ion-icon>
+      </ion-item>
+
+      <!-- Swipe a la derecha -->
+      <ion-item-options side="start">
+        <ion-item-option color="danger" (click)="removeFast(t, sliding)" expandable>
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+
+
+
+  <ng-template #empty>
+    <div class="empty">
+      <ion-icon name="checkmark-done-outline"></ion-icon>
+      <p>No hay tareas registradas</p>
+    </div>
+  </ng-template>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="goCreate()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
